@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +10,20 @@ import 'package:scanner_task/utils/image_constants.dart';
 import 'package:scanner_task/view/add_item_screen/add_item_screen.dart';
 import 'package:scanner_task/view/success_screen/success_screen.dart';
 
-class SummaryScreen extends StatelessWidget {
+class SummaryScreen extends StatefulWidget {
   const SummaryScreen({super.key, required this.bag});
   final List<ProductModel> bag;
+
+  @override
+  State<SummaryScreen> createState() => _SummaryScreenState();
+}
+
+class _SummaryScreenState extends State<SummaryScreen> {
+  @override
+  void initState() {
+    log(widget.bag.length.toString());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,17 +126,17 @@ class SummaryScreen extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        bag[index].name.toString(),
+                                        widget.bag[index].name.toString(),
                                         style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 14),
                                       ),
                                       SizedBox(height: 10),
                                       Text(
-                                        bag[index].batchNumber.toString(),
+                                        widget.bag[index].batchNumber.toString(),
                                         style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 14),
                                       ),
                                       SizedBox(height: 10),
                                       Text(
-                                        "${bag[index].number.toString()} X  ${bag[index].quantity.toString()}",
+                                        "${widget.bag[index].number.toString()} X  ${widget.bag[index].quantity.toString()}",
                                         style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 14),
                                       ),
                                     ],
@@ -137,7 +150,7 @@ class SummaryScreen extends StatelessWidget {
                             thickness: 1.5,
                             color: Colors.black,
                           ),
-                      itemCount: bag.length),
+                      itemCount: widget.bag.length),
                 ),
               ),
             ],
