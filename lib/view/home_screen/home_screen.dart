@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:scanner_task/controller/add_item_screen_controller.dart';

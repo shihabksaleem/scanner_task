@@ -1,8 +1,11 @@
 import 'dart:developer';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:scanner_task/controller/add_item_screen_controller.dart';
+import 'package:scanner_task/utils/color_constants.dart';
+import 'package:scanner_task/utils/image_constants.dart';
 
 class AddItemScreen extends StatefulWidget {
   const AddItemScreen({super.key});
@@ -45,8 +48,47 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(),
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 24.0, right: 24, top: 30),
+          child: Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // seciton:1 Logo
+                  Image.asset(height: 50, width: 125.5, fit: BoxFit.contain, ImageConstants.OREOLOGO),
+                  SizedBox(height: 16),
+                  // seciton:2 items section
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Items", style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold)),
+                      InkWell(
+                        onTap: () {
+                          scanBarcode();
+                        },
+                        child: Text("Add more",
+                            style: GoogleFonts.inter(
+                                fontSize: 10, color: ColorConstants.primaryBlue, fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Expanded(
+                  child: Consumer<AddItemScreenController>(
+                builder: (context, screenProvider, child) => ListView.separated(
+                  itemCount: screenProvider.scannedItems.length,
+                  itemBuilder: (context, index) => Text("name : ${screenProvider.scannedItems[index].name}"),
+                  separatorBuilder: (context, index) => SizedBox(height: 16),
+                ),
+              ))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
