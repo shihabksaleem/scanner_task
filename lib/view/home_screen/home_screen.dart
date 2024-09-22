@@ -11,9 +11,7 @@ import 'package:scanner_task/view/home_screen/widget/recent_itemJ_card.dart';
 
 class HomeScreen extends StatefulWidget {
   final TabController tabController;
-
   const HomeScreen({super.key, required this.tabController});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -32,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // Navigate to the second tab after scanning
         context
             .read<AddItemScreenController>()
-            .addScannedItemToBag(barcodeResult.toString()); // to add scanned  item to bag
+            .addScannedItemToBag(id: barcodeResult.toString(), context: context); // to add scanned  item to bag
         widget.tabController
             .animateTo(1); //  to animate to tab  add item tab using tab controller after successful scanning
       }
