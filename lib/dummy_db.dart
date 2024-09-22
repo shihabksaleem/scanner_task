@@ -37,7 +37,7 @@ class DummyDb {
       number: 8,
       isRawMaterial: true,
       batchNumber: "BATCH1004",
-      imagePath: ImageConstants.COCOPOWDER,
+      imagePath: ImageConstants.MILKPOWDER,
     ),
     ProductModel(
       itemId: "RM005",
@@ -45,7 +45,7 @@ class DummyDb {
       quantity: "40 kg",
       isRawMaterial: true,
       batchNumber: "BATCH1005",
-      imagePath: ImageConstants.COCOPOWDER,
+      imagePath: ImageConstants.BUTTER,
     ),
     ProductModel(
       itemId: "RM006",
@@ -53,7 +53,7 @@ class DummyDb {
       quantity: "5 kg",
       isRawMaterial: true,
       batchNumber: "BATCH1006",
-      imagePath: ImageConstants.COCOPOWDER,
+      imagePath: ImageConstants.BAKINGSODA,
     ),
     ProductModel(
       itemId: "RM007",
@@ -61,7 +61,7 @@ class DummyDb {
       quantity: "10 liters",
       isRawMaterial: true,
       batchNumber: "BATCH1007",
-      imagePath: ImageConstants.COCOPOWDER,
+      imagePath: ImageConstants.VANILAEXTRACT,
     ),
     // Finished product: Oreo Biscuits
     ProductModel(
@@ -70,7 +70,7 @@ class DummyDb {
       quantity: "500 packets",
       isRawMaterial: false,
       batchNumber: "OREO202309",
-      imagePath: ImageConstants.COCOPOWDER,
+      imagePath: ImageConstants.OREOBISCUITS,
     ),
   ];
 }
