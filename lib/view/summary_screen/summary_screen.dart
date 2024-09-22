@@ -1,18 +1,22 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:scanner_task/controller/add_item_screen_controller.dart';
+import 'package:scanner_task/controller/home_screen_controller.dart';
 import 'package:scanner_task/global_widgets/custom_button.dart';
+import 'package:scanner_task/model/bag_model.dart';
 import 'package:scanner_task/model/product_model.dart';
 import 'package:scanner_task/utils/image_constants.dart';
-import 'package:scanner_task/view/add_item_screen/add_item_screen.dart';
+import 'package:scanner_task/view/bottom_nav_bar_screen/bottom_nav_bar_screen.dart';
 import 'package:scanner_task/view/success_screen/success_screen.dart';
 
 class SummaryScreen extends StatefulWidget {
-  const SummaryScreen({super.key, required this.bag});
+  const SummaryScreen({super.key, required this.bag, this.isPreview = false, this.date, this.time});
   final List<ProductModel> bag;
+  final bool isPreview; // just to view the summary only
+  final String? date;
+  final String? time;
 
   @override
   State<SummaryScreen> createState() => _SummaryScreenState();
@@ -21,13 +25,13 @@ class SummaryScreen extends StatefulWidget {
 class _SummaryScreenState extends State<SummaryScreen> {
   @override
   void initState() {
-    log(widget.bag.length.toString());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -69,11 +73,11 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "11/09/2024",
+                                widget.date ?? DateFormat("dd/MM/yyyy").format(DateTime.now()),
                                 style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                               Text(
-                                "3 PM",
+                                widget.time ?? DateFormat("hh:mm a").format(DateTime.now()),
                                 style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ],
@@ -157,19 +161,30 @@ class _SummaryScreenState extends State<SummaryScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: CustomButton(
-        buttonText: "Proceed",
-        onButtonTapped: () {
-          context.read<AddItemScreenController>().clearItemsInBag();
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SuccessScreen(),
+      bottomNavigationBar: widget.isPreview
+          ? null
+          : CustomButton(
+              buttonText: "Proceed",
+              onButtonTapped: () async {
+                await context.read<HomeScreenController>().addBagItem(BagModel(
+                      date: DateFormat("dd/MM/yyyy").format(DateTime.now()), // Format for date
+                      time: DateFormat("hh:mm a").format(DateTime.now()), // Format for time (e.g., 10:30 AM)
+                      bagItems: widget.bag,
+                    ));
+
+                context
+                    .read<AddItemScreenController>()
+                    .clearItemsInBag(); // to clear the previous bag data after successful  creation of order
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SuccessScreen(),
+                  ),
+                  (route) => false,
+                );
+              },
             ),
-            (route) => false,
-          );
-        },
-      ),
     );
   }
 }

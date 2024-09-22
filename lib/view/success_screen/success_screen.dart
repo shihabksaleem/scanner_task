@@ -36,12 +36,11 @@ class _SuccessScreenState extends State<SuccessScreen> {
               width: 200,
               buttonText: "Back to Home",
               onButtonTapped: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => BottomNavBarScreen(),
                   ),
-                  (route) => false,
                 );
               },
             ),

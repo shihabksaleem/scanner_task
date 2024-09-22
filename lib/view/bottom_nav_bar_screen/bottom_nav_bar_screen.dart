@@ -21,19 +21,17 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> with SingleTick
   }
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(controller: _tabController, children: [
-        HomeScreen(tabController: _tabController),
-        AddItemScreen(),
-        HomeScreen(tabController: _tabController),
-      ]),
+      body: TabBarView(
+        controller: _tabController,
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          HomeScreen(tabController: _tabController),
+          AddItemScreen(),
+          HomeScreen(tabController: _tabController),
+        ],
+      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 15),
         child: Container(

@@ -5,19 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:scanner_task/controller/add_item_screen_controller.dart';
+import 'package:scanner_task/controller/home_screen_controller.dart';
 import 'package:scanner_task/utils/color_constants.dart';
 import 'package:scanner_task/utils/image_constants.dart';
-import 'package:scanner_task/view/home_screen/widget/recent_itemJ_card.dart';
+import 'package:scanner_task/view/home_screen/widget/recent_item_card.dart';
+import 'package:scanner_task/view/recently_added_items_screen/recently_added_items_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final TabController tabController;
-  const HomeScreen({super.key, required this.tabController});
+  HomeScreen({super.key, required this.tabController});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   String barcodeResult = "";
+
   Future<void> scanBarcode() async {
     try {
       var result = await BarcodeScanner.scan();
@@ -26,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
       });
 
       if (barcodeResult.isNotEmpty) {
-        log(barcodeResult.toString());
         // Navigate to the second tab after scanning
         context
             .read<AddItemScreenController>()
@@ -40,12 +42,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        context.read<HomeScreenController>().getBagItems();
+      },
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
+            child: Consumer<HomeScreenController>(
+          builder: (context, screenProvider, child) => Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 16, top: 30, right: 16),
@@ -180,28 +193,46 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Recent",
                           style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          "more",
-                          style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.bold),
+                        TextButton(
+                          child: Text(
+                            "more",
+                            style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RecentlyAddedItemsScreen(),
+                                ));
+                          },
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-              ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                shrinkWrap: true,
-                itemCount: 10,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => RecentItemCard(),
-                separatorBuilder: (context, index) => SizedBox(
-                  height: 16,
-                ),
-              )
+              screenProvider.bagList.isNotEmpty
+                  ? ListView.separated(
+                      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                      shrinkWrap: true,
+                      itemCount: screenProvider.bagList.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => RecentItemCard(
+                        bagDetails: screenProvider.bagList[index],
+                      ),
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 16,
+                      ),
+                    )
+                  : SizedBox(
+                      height: 200,
+                      child: Center(
+                        child: Text("No Data Found"),
+                      ),
+                    )
             ],
           ),
-        ),
+        )),
       ),
     );
   }

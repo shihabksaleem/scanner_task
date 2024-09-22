@@ -40,7 +40,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
       });
 
       if (barcodeResult.isNotEmpty) {
-        log(barcodeResult.toString());
         context.read<AddItemScreenController>().addScannedItemToBag(id: barcodeResult.toString(), context: context);
       }
     } catch (e) {
