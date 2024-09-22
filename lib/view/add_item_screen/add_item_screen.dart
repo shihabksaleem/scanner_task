@@ -81,7 +81,33 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   child: Consumer<AddItemScreenController>(
                 builder: (context, screenProvider, child) => ListView.separated(
                   itemCount: screenProvider.scannedItems.length,
-                  itemBuilder: (context, index) => Text("name : ${screenProvider.scannedItems[index].name}"),
+                  itemBuilder: (context, index) => Container(
+                      child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          screenProvider.scannedItems[index].imagePath,
+                          height: 90,
+                          width: 90,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text("${screenProvider.scannedItems[index].quantity}"),
+                          Text("${screenProvider.scannedItems[index].name}"),
+                        ],
+                      ),
+                      Spacer(),
+                      Container(
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: Row(
+                          children: [Icon(Icons.remove)],
+                        ),
+                      )
+                    ],
+                  )),
                   separatorBuilder: (context, index) => SizedBox(height: 16),
                 ),
               ))

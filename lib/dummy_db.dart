@@ -1,4 +1,5 @@
 import 'package:scanner_task/model/product_model.dart';
+import 'package:scanner_task/utils/image_constants.dart';
 
 class DummyDb {
   // Static list of products, including raw materials and finished Oreo biscuits
@@ -10,6 +11,7 @@ class DummyDb {
       quantity: "100 kg",
       isRawMaterial: true,
       batchNumber: "BATCH1001",
+      imagePath: ImageConstants.FLOUR,
     ),
     ProductModel(
       itemId: "RM002",
@@ -17,6 +19,7 @@ class DummyDb {
       quantity: "50 kg",
       isRawMaterial: true,
       batchNumber: "BATCH1002",
+      imagePath: ImageConstants.SUGAR,
     ),
     ProductModel(
       itemId: "RM003",
@@ -25,6 +28,7 @@ class DummyDb {
       number: 15,
       isRawMaterial: true,
       batchNumber: "BATCH1003",
+      imagePath: ImageConstants.COCOPOWDER,
     ),
     ProductModel(
       itemId: "RM004",
@@ -33,6 +37,7 @@ class DummyDb {
       number: 8,
       isRawMaterial: true,
       batchNumber: "BATCH1004",
+      imagePath: ImageConstants.COCOPOWDER,
     ),
     ProductModel(
       itemId: "RM005",
@@ -40,6 +45,7 @@ class DummyDb {
       quantity: "40 kg",
       isRawMaterial: true,
       batchNumber: "BATCH1005",
+      imagePath: ImageConstants.COCOPOWDER,
     ),
     ProductModel(
       itemId: "RM006",
@@ -47,6 +53,7 @@ class DummyDb {
       quantity: "5 kg",
       isRawMaterial: true,
       batchNumber: "BATCH1006",
+      imagePath: ImageConstants.COCOPOWDER,
     ),
     ProductModel(
       itemId: "RM007",
@@ -54,6 +61,7 @@ class DummyDb {
       quantity: "10 liters",
       isRawMaterial: true,
       batchNumber: "BATCH1007",
+      imagePath: ImageConstants.COCOPOWDER,
     ),
     // Finished product: Oreo Biscuits
     ProductModel(
@@ -62,6 +70,7 @@ class DummyDb {
       quantity: "500 packets",
       isRawMaterial: false,
       batchNumber: "OREO202309",
+      imagePath: ImageConstants.COCOPOWDER,
     ),
   ];
 }
