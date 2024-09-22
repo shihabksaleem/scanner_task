@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       SizedBox(height: 14),
                                       Text(
-                                        "Checkouts 0",
+                                        "Checkouts ${screenProvider.bagList.length}",
                                         style: GoogleFonts.inter(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 15,
