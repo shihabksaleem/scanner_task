@@ -9,4 +9,5 @@ class ImageConstants {
   static const String VANILAEXTRACT = "assets/images/vanila_extract.jpg";
   static const String OREOBISCUITS = "assets/images/oreo_biscuits.png";
   static const String TEXTURE = "assets/images/texture.png";
+  static const String SUCCESS = "assets/images/success.png";
 }

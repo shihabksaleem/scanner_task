@@ -57,4 +57,9 @@ class AddItemScreenController with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void clearItemsInBag() {
+    scannedItems.clear();
+    notifyListeners();
+  }
 }

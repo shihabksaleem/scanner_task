@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:scanner_task/controller/add_item_screen_controller.dart';
 import 'package:scanner_task/global_widgets/custom_button.dart';
 import 'package:scanner_task/model/product_model.dart';
 import 'package:scanner_task/utils/image_constants.dart';
+import 'package:scanner_task/view/add_item_screen/add_item_screen.dart';
+import 'package:scanner_task/view/success_screen/success_screen.dart';
 
 class SummaryScreen extends StatelessWidget {
   const SummaryScreen({super.key, required this.bag});
@@ -140,7 +144,19 @@ class SummaryScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: CustomButton(buttonText: "Proceed"),
+      bottomNavigationBar: CustomButton(
+        buttonText: "Proceed",
+        onButtonTapped: () {
+          context.read<AddItemScreenController>().clearItemsInBag();
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SuccessScreen(),
+            ),
+            (route) => false,
+          );
+        },
+      ),
     );
   }
 }

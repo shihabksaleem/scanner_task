@@ -4,9 +4,14 @@ import 'package:scanner_task/utils/color_constants.dart';
 import 'package:scanner_task/utils/image_constants.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.buttonText, this.onButtonTapped});
+  const CustomButton(
+      {super.key, required this.buttonText, this.onButtonTapped, this.width, this.textSize, this.height});
   final String buttonText;
   final void Function()? onButtonTapped;
+  final double? width;
+  final double? textSize;
+  final double? height;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -15,15 +20,15 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 16, left: 20, right: 20),
         child: Container(
           alignment: Alignment.center,
-          width: double.infinity,
-          height: 60,
+          width: width ?? double.infinity,
+          height: height ?? 60,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: ColorConstants.primaryBlue,
               image: DecorationImage(opacity: .5, fit: BoxFit.cover, image: AssetImage(ImageConstants.TEXTURE))),
           child: Text(
             buttonText,
-            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: textSize ?? 22, color: Colors.white),
           ),
         ),
       ),
